@@ -4,24 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    tools:context="affinitas.com.affinitaspersonalitytest.MainActivity">
+    tools:context="affinitas.com.affinitaspersonalitytest.ui.main.MainActivity">
 
-    <Button
-        android:id="@+id/btnNewQuestions"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Get New Questions" />
+        android:visibility="gone"></Spinner>
 
-    <Button
-        android:id="@+id/btnPreviousAnswer"
-        android:layout_width="wrap_content"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/questionnairePager"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My Previous Answers" />
+        android:keepScreenOn="true"
+        android:visibility="gone"/>
 
     <android.support.v4.widget.ContentLoadingProgressBar
+        style="@style/MyProgressBar"
+        android:id="@+id/progressBar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:progressTint="@color/colorPrimaryDark"/>
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/personalityTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
