@@ -27,15 +27,23 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
     @Inject
     lateinit var presenter: MainPresenter
 
-    lateinit var mainAdapter: MainPagerAdapter
-    lateinit var questionItems: List<QuestionItem>
-    lateinit var subQuestionnaireItems: MutableList<QuestionItem>
+    private lateinit var questionItems: List<QuestionItem>
+
+    private var spinnerPosition: Int = 0
+    private var subQuestionnaireItems: MutableList<QuestionItem>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupDependencies()
+        savedInstanceState?.let { spinnerPosition = it.getInt(SPINNER_POSITION) }
         setupView()
+    }
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        Log.e(this.javaClass.simpleName, "categorySpinner.selectedItemPosition : " + categorySpinner.selectedItemPosition )
+        savedInstanceState.putInt(SPINNER_POSITION, categorySpinner.selectedItemPosition)
     }
 
     private fun setupView() {
@@ -65,10 +73,6 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
 
     private fun setupPager(questionItems: List<QuestionItem>) {
         this.questionItems = questionItems
-        subQuestionnaireItems = questionItems.filter { it.category == Category.HARD_FACT }.toMutableList()
-        Log.e(this.javaClass.simpleName, "subQuestionnaireItems: " + subQuestionnaireItems.toString())
-        questionnairePager.clipToPadding = false
-        questionnairePager.adapter = MainPagerAdapter(subQuestionnaireItems)
     }
 
     private fun setupDropdown(choices: List<String>) {
@@ -76,19 +80,19 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
                 android.R.layout.simple_spinner_item, choices)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         categorySpinner.adapter = spinnerAdapter
-//        categorySpinner.onItemSelectedListener = this
+        categorySpinner.setSelection(spinnerPosition)
+        categorySpinner.onItemSelectedListener = this
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//        Log.e(this.javaClass.simpleName, "category : " + Category.getCategory(parent?.getItemAtPosition(position).toString()))
-//        subQuestionnaireItems.clear()
-//        subQuestionnaireItems = questionItems.filter { it.category ==
-//                Category.getCategory(parent?.getItemAtPosition(position).toString()) }.toMutableList()
-
-//        Log.e(this.javaClass.simpleName, "subQuestionnaireItems: " + subQuestionnaireItems.toString())
-//        questionnairePager.adapter.notifyDataSetChanged()
+        subQuestionnaireItems?.clear()
+        subQuestionnaireItems = questionItems.filter {
+            it.category == Category.getCategory(parent?.getItemAtPosition(position).toString())
+        }.toMutableList()
+        subQuestionnaireItems?.let { questionnairePager.adapter = MainPagerAdapter(it) }
+        questionnairePager.adapter.notifyDataSetChanged()
     }
 
     override fun onDestroy() {
@@ -98,5 +102,6 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
 
     companion object {
         lateinit var activitiesComponent: ActivitiesComponent
+        val SPINNER_POSITION = "SPINNER_POSITION"
     }
 }
