@@ -1,6 +1,7 @@
 package affinitas.com.affinitaspersonalitytest.ui.main
 
 import affinitas.com.affinitaspersonalitytest.interactors.QuestionnaireInteractor
+import affinitas.com.affinitaspersonalitytest.model.AnswerKey
 import affinitas.com.affinitaspersonalitytest.ui.base.BasePresenter
 import android.util.Log
 import rx.android.schedulers.AndroidSchedulers
@@ -22,4 +23,12 @@ class MainPresenter @Inject constructor(private val interactor: QuestionnaireInt
                     Log.e(this.javaClass.simpleName, "Error $it")
                 })
     }
+
+    fun loadAnswerKeys(): List<AnswerKey>? = interactor.loadAnswerKeys()
+
+    fun saveAnswer(answerKey: AnswerKey) {
+        interactor.saveAnswer(answerKey)
+    }
+
+
 }

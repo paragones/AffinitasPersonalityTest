@@ -1,10 +1,10 @@
 package affinitas.com.affinitaspersonalitytest.ui.main
 
 import affinitas.com.affinitaspersonalitytest.R
-import affinitas.com.affinitaspersonalitytest.config.ActivitiesComponent
-import affinitas.com.affinitaspersonalitytest.config.ActivityModule
-import affinitas.com.affinitaspersonalitytest.config.DaggerActivitiesComponent
-import affinitas.com.affinitaspersonalitytest.config.NetworkModule
+import affinitas.com.affinitaspersonalitytest.config.MainApplication
+import affinitas.com.affinitaspersonalitytest.config.components.ActivitiesComponent
+import affinitas.com.affinitaspersonalitytest.config.components.ApplicationComponent
+import affinitas.com.affinitaspersonalitytest.config.components.DaggerActivitiesComponent
 import affinitas.com.affinitaspersonalitytest.model.Category
 import affinitas.com.affinitaspersonalitytest.model.QuestionItem
 import android.os.Bundle
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
 
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
-        Log.e(this.javaClass.simpleName, "categorySpinner.selectedItemPosition : " + categorySpinner.selectedItemPosition )
+        Log.e(this.javaClass.simpleName, "categorySpinner.selectedItemPosition : " + categorySpinner.selectedItemPosition)
         savedInstanceState.putInt(SPINNER_POSITION, categorySpinner.selectedItemPosition)
     }
 
@@ -53,8 +53,7 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
 
     private fun setupDependencies() {
         activitiesComponent = DaggerActivitiesComponent.builder()
-                .networkModule(NetworkModule())
-                .activityModule(ActivityModule())
+                .applicationComponent(applicationComponent())
                 .build()
         activitiesComponent.inject(this)
     }
@@ -91,7 +90,7 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
         subQuestionnaireItems = questionItems.filter {
             it.category == Category.getCategory(parent?.getItemAtPosition(position).toString())
         }.toMutableList()
-        subQuestionnaireItems?.let { questionnairePager.adapter = MainPagerAdapter(it) }
+        subQuestionnaireItems?.let { questionnairePager.adapter = MainPagerAdapter(it, presenter.loadAnswerKeys(), { presenter.saveAnswer(it) }) }
         questionnairePager.adapter.notifyDataSetChanged()
     }
 
@@ -99,6 +98,8 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
         super.onDestroy()
         presenter.detach()
     }
+
+    fun applicationComponent(): ApplicationComponent = MainApplication.applicationComponent
 
     companion object {
         lateinit var activitiesComponent: ActivitiesComponent

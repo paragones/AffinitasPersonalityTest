@@ -21,8 +21,9 @@ class PersonalityTestMapper : DataMapper<PersonalityTestWrapper, Pair<List<Categ
     private fun parseCategories(categories: List<String>): List<Category> = categories.map { Category.getCategory(it) }
 
     private fun parseQuestionItems(questions: List<JsonQuestion>): List<QuestionItem> {
-        return questions.map {
-            QuestionItem(it.question,
+        return questions.mapIndexed { index, it ->
+            QuestionItem(index,
+                    it.question,
                     Category.getCategory(it.category),
                     QuestionType.getType(it.questionType.type),
                     it.questionType.options)

@@ -1,8 +1,8 @@
 package affinitas.com.affinitaspersonalitytest.interactors
 
+import affinitas.com.affinitaspersonalitytest.model.AnswerKey
 import affinitas.com.affinitaspersonalitytest.model.Category
 import affinitas.com.affinitaspersonalitytest.model.QuestionItem
-import affinitas.com.affinitaspersonalitytest.rest.PersonalityTestWrapper
 import rx.Observable
 
 /**
@@ -14,4 +14,6 @@ import rx.Observable
 //Todo: Change the jsonobject to pojo
 interface QuestionnaireInteractor {
     fun personalityTests(): Observable<Pair<List<Category>, List<QuestionItem>>>
+    fun saveAnswer(answerKey: AnswerKey)
+    fun loadAnswerKeys(): List<AnswerKey>?
 }
