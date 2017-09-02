@@ -2,6 +2,7 @@ package affinitas.com.affinitaspersonalitytest.ui.main
 
 import affinitas.com.affinitaspersonalitytest.interactors.QuestionnaireInteractor
 import affinitas.com.affinitaspersonalitytest.model.AnswerKey
+import affinitas.com.affinitaspersonalitytest.schedulers.ThreadScheduler
 import affinitas.com.affinitaspersonalitytest.ui.base.BasePresenter
 import android.util.Log
 import rx.android.schedulers.AndroidSchedulers
@@ -12,15 +13,16 @@ import javax.inject.Inject
  *
  * Created by Paul Aragones on 8/30/2017.
  */
-class MainPresenter @Inject constructor(private val interactor: QuestionnaireInteractor) : BasePresenter<MainView>() {
+class MainPresenter @Inject constructor(private val interactor: QuestionnaireInteractor,
+                                        scheduler: ThreadScheduler) : BasePresenter<MainView>(scheduler) {
 
     fun loadData() {
         interactor.personalityTests()
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(observeOn())
                 .subscribe({
                     view?.displayTest(it)
                 }, {
-                    Log.e(this.javaClass.simpleName, "Error $it")
+                    view?.displayError()
                 })
     }
 

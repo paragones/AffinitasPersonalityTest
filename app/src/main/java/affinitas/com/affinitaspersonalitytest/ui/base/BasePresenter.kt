@@ -1,5 +1,7 @@
 package affinitas.com.affinitaspersonalitytest.ui.base
 
+import affinitas.com.affinitaspersonalitytest.schedulers.ThreadScheduler
+import rx.Observable
 import rx.Subscription
 import rx.subscriptions.CompositeSubscription
 
@@ -9,7 +11,7 @@ import rx.subscriptions.CompositeSubscription
  * Created by Paul Aragones on 8/30/2017.
  */
 
-abstract class BasePresenter<T> {
+abstract class BasePresenter<T>(protected var scheduler: ThreadScheduler) {
     protected var view: T? = null
 
     fun attach(view: T) {
@@ -18,5 +20,9 @@ abstract class BasePresenter<T> {
 
     fun detach() {
         this.view = null
+    }
+
+    protected fun <T> observeOn(): Observable.Transformer<T, T> {
+        return scheduler.compose<T>()
     }
 }

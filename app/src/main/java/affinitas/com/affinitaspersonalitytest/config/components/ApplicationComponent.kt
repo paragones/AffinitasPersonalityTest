@@ -9,9 +9,11 @@ import affinitas.com.affinitaspersonalitytest.model.QuestionItem
 import affinitas.com.affinitaspersonalitytest.repositories.QuestionnaireRepository
 import affinitas.com.affinitaspersonalitytest.rest.PersonalityTestWrapper
 import affinitas.com.affinitaspersonalitytest.rest.QuestionnaireRest
+import affinitas.com.affinitaspersonalitytest.schedulers.ThreadScheduler
 import affinitas.com.affinitaspersonalitytest.services.DatabaseService
 import affinitas.com.affinitaspersonalitytest.services.ServiceManager
 import dagger.Component
+import java.util.concurrent.Executors
 import javax.inject.Singleton
 
 /**
@@ -21,7 +23,8 @@ import javax.inject.Singleton
  */
 
 @Singleton
-@Component(modules = arrayOf(InteractorModule::class,
+@Component(modules = arrayOf(ExecutorsModule::class,
+        InteractorModule::class,
         MapperModule::class,
         NetworkModule::class,
         RepositoryModule::class,
@@ -40,4 +43,6 @@ interface ApplicationComponent {
     fun serviceManager(): ServiceManager
 
     fun databaseService(): DatabaseService
+
+    fun threadScheduler() : ThreadScheduler
 }

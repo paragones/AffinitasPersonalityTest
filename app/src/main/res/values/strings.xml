@@ -3,4 +3,5 @@
     <string name="get_new_questions">Get New Questions</string>
     <string name="check_my_previous_answers">Check My Previous Answers</string>
     <string name="question_number">Question # %d</string>
+    <string name="error_message">Sorry there was an error loading the questions try again later</string>
 </resources>

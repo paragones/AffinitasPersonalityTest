@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -69,6 +70,8 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
         questionnairePager.visibility = View.VISIBLE
         progressBar.hide()
     }
+
+    override fun displayError() = Toast.makeText(this, R.string.error_message, Toast.LENGTH_LONG).show()
 
     private fun setupPager(questionItems: List<QuestionItem>) {
         this.questionItems = questionItems

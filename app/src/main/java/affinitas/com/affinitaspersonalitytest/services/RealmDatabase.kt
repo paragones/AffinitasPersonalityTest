@@ -37,5 +37,4 @@ class RealmDatabase : DatabaseService {
         realmAnswerKey.optionSelected = answerKey.optionSelected
         realm.commitTransaction()
     }
-
 }

@@ -10,4 +10,5 @@ import affinitas.com.affinitaspersonalitytest.model.QuestionItem
  */
 interface MainView {
     fun displayTest(result: Pair<List<Category>, List<QuestionItem>>)
+    fun displayError()
 }
