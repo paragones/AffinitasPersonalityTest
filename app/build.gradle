@@ -37,6 +37,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'API_HOST', '"https://raw.githubusercontent.com/affinitas/coding_exercises_options/master/personality_test/"'
+        multiDexEnabled true
     }
     buildTypes {
         release {
