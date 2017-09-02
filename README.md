@@ -7,7 +7,7 @@ Code Design and Architectural Solution
 
 Requirements Fullfilled:
   
-    •	Once the user opens the app. The app will call the [**REST Api**] (https://raw.githubusercontent.com/affinitas/coding_exercises_options/master/personality_test/database/personality_test.json) to get the JSON File.
+    •	Once the user opens the app. The app will call the [**REST Api**](https://raw.githubusercontent.com/affinitas/coding_exercises_options/master/personality_test/database/personality_test.json) to get the JSON File.
 	
     •	Then, the mapper will map the response to a POJO class to be used all throughout the duration of the app.
     
