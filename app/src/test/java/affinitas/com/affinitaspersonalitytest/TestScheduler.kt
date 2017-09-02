@@ -4,7 +4,7 @@ import affinitas.com.affinitaspersonalitytest.schedulers.ThreadScheduler
 import rx.Observable
 import rx.schedulers.Schedulers
 
-class TestExecutor() : ThreadScheduler {
+class TestScheduler() : ThreadScheduler {
     override fun <T> compose(): Observable.Transformer<T, T> {
         return Observable.Transformer<T, T> { observable ->
             observable.observeOn(Schedulers.immediate())

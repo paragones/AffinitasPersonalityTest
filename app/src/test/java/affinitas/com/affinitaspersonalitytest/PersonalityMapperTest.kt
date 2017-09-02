@@ -4,12 +4,9 @@ import affinitas.com.affinitaspersonalitytest.mapper.DataMapper
 import affinitas.com.affinitaspersonalitytest.mapper.PersonalityTestMapper
 import affinitas.com.affinitaspersonalitytest.model.Category
 import affinitas.com.affinitaspersonalitytest.model.QuestionItem
-import affinitas.com.affinitaspersonalitytest.model.QuestionType
 import affinitas.com.affinitaspersonalitytest.rest.JsonQuestion
 import affinitas.com.affinitaspersonalitytest.rest.JsonQuestionType
 import affinitas.com.affinitaspersonalitytest.rest.PersonalityTestWrapper
-import org.hamcrest.core.Is
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -18,7 +15,6 @@ import kotlin.test.assertEquals
  * AffinitasPersonalityTest
  *
  * Created by Paul Aragones on 9/2/2017.
- * Copyright © 2017 Dojo Madness GmbH. All rights reserved.
  */
 class PersonalityMapperTest {
     lateinit var personalityTestMapper: DataMapper<PersonalityTestWrapper, Pair<List<Category>, List<QuestionItem>>>

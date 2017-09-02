@@ -8,7 +8,6 @@ import affinitas.com.affinitaspersonalitytest.model.QuestionType
  * AffinitasPersonalityTest
  *
  * Created by Paul Aragones on 9/2/2017.
- * Copyright © 2017 Dojo Madness GmbH. All rights reserved.
  */
 object TestUtil {
 

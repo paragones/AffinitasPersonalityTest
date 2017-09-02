@@ -9,7 +9,6 @@ import affinitas.com.affinitaspersonalitytest.model.Category
 import affinitas.com.affinitaspersonalitytest.model.QuestionItem
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity(), MainView, AdapterView.OnItemSelectedLi
 
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
-        Log.e(this.javaClass.simpleName, "categorySpinner.selectedItemPosition : " + categorySpinner.selectedItemPosition)
         savedInstanceState.putInt(SPINNER_POSITION, categorySpinner.selectedItemPosition)
     }
 

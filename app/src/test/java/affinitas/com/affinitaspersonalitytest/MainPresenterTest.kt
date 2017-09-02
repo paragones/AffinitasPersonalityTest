@@ -10,13 +10,11 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
 
 /**
  * AffinitasPersonalityTest
  *
  * Created by Paul Aragones on 9/2/2017.
- * Copyright © 2017 Dojo Madness GmbH. All rights reserved.
  */
 class MainPresenterTest {
     private lateinit var presenter: MainPresenter
@@ -30,7 +28,7 @@ class MainPresenterTest {
         interactor = Mockito.mock(QuestionnaireInteractor::class.java)
         view = Mockito.mock(MainView::class.java)
         scheduler = Mockito.mock(ThreadScheduler::class.java)
-        presenter = MainPresenter(interactor, TestExecutor())
+        presenter = MainPresenter(interactor, TestScheduler())
         presenter.attach(view)
         pojoResults = TestUtil.pojoResults()
     }
